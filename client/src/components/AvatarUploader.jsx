@@ -134,9 +134,9 @@ export default function AvatarUploader() {
       {preview && <img src={preview} alt="Avatar preview" className="preview" />}
       {error && <p className="error" role="alert">{error}</p>}
 
-      {isUploading && (
+      {(isUploading || progress > 0) && (
         <div aria-live="polite">
-          <p>Uploading {file?.name}</p>
+          <p>{isUploading ? `Uploading ${file?.name}` : "Upload complete"}</p>
           <div
             className="bar"
             role="progressbar"
@@ -150,7 +150,6 @@ export default function AvatarUploader() {
           <p>{progress}%</p>
         </div>
       )}
-      {!isUploading && progress === 100 && <p role="status">Upload complete (100%).</p>}
       {uploadedUrl && <p role="status">Uploaded: {uploadedUrl}</p>}
 
       <button onClick={upload} disabled={!file || isUploading}>
